@@ -111,7 +111,7 @@ class CafeKioskTest {
 
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
-
+        Latte latte = new Latte();
         cafeKiosk.add(americano);
         assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(23, 1, 17, 9, 0)))
                 .isInstanceOf(IllegalArgumentException.class)
