@@ -14,7 +14,7 @@ import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 //@SpringBootTest
-@DataJpaTest
+@DataJpaTest/*tx이 있음. Springboottest는 없어서 aftereach필요*/
 @ActiveProfiles("test")
 class ProductRepositoryTest {
 
