@@ -17,6 +17,10 @@ import sample.cafekiosk.spring.domain.product.ProductType;
 import sample.cafekiosk.spring.domain.stock.Stock;
 import sample.cafekiosk.spring.domain.stock.StockRepository;
 
+/*오픈api크롤링, 상품 재고감소 동시성해결과 querydsl등 성능개선
+* 가장 가까운 위치의 지점을 보여준다?
+* */
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
