@@ -1,25 +1,21 @@
 package sample.cafekiosk.spring.api.controller.product;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockRequestDispatcher;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.product.ProductService;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
@@ -42,7 +38,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("신규 상품을 등록한다.")
-    public void createProduct() throws Exception{
+    public void createProduct() throws Exception {
         //given api 활용
         ProductCreateRequest request = ProductCreateRequest.builder()
             .type(ProductType.HANDMADE)
@@ -63,7 +59,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("신규 상품을 등록할 때 상품 타입은 필수입니다.")
-    public void createProductWithoutType() throws Exception{
+    public void createProductWithoutType() throws Exception {
         //given api 활용
         ProductCreateRequest request = ProductCreateRequest.builder()
             .sellingStatus(ProductSellingStatus.SELLING)
@@ -88,7 +84,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("신규 상품을 등록할 때 상품 판매상태는 필수입니다.")
-    public void createProductWithoutSellingStatus() throws Exception{
+    public void createProductWithoutSellingStatus() throws Exception {
         //given api 활용
         ProductCreateRequest request = ProductCreateRequest.builder()
             .type(ProductType.HANDMADE)
@@ -113,7 +109,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("신규 상품을 등록할 때 상품 이름은 필수입니다.")
-    public void createProductWithoutName() throws Exception{
+    public void createProductWithoutName() throws Exception {
         //given api 활용
         ProductCreateRequest request = ProductCreateRequest.builder()
             .type(ProductType.HANDMADE)
@@ -138,7 +134,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("신규 상품을 등록할 때 상품 가격은 양수다.")
-    public void createProductWithoutZeroPrice() throws Exception{
+    public void createProductWithoutZeroPrice() throws Exception {
         //given api 활용
         ProductCreateRequest request = ProductCreateRequest.builder()
             .type(ProductType.HANDMADE)
@@ -164,7 +160,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("판매 상품을 조회한다.")
-    public void getSellingProducts() throws Exception{
+    public void getSellingProducts() throws Exception {
         //when ->서비스레이어에서 테스트한 부분은 제외하고 배열이 잘 오는지만 확인
         List<ProductResponse> result = List.of();
 
@@ -172,9 +168,9 @@ class ProductControllerTest {
 
         // then
         /*
-        * 조회 테스트시 쿼리파라미터가 붙는다면
-        * 아래처럼하고 .queryParam("name","이름").queryParam()
-        * */
+         * 조회 테스트시 쿼리파라미터가 붙는다면
+         * 아래처럼하고 .queryParam("name","이름").queryParam()
+         * */
         mockMvc.perform(
                 get("/api/v1/products/selling")
             )

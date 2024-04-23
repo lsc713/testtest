@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.Order;
@@ -19,8 +18,8 @@ import sample.cafekiosk.spring.domain.stock.Stock;
 import sample.cafekiosk.spring.domain.stock.StockRepository;
 
 /*오픈api크롤링, 상품 재고감소 동시성해결과 querydsl등 성능개선
-* 가장 가까운 위치의 지점을 보여준다?
-* */
+ * 가장 가까운 위치의 지점을 보여준다?
+ * */
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +30,9 @@ public class OrderService {
     private final StockRepository stockRepository;
 
     /*재고감소->동시성
-    * lock*/
-    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
+     * lock*/
+    public OrderResponse createOrder(OrderCreateServiceRequest request,
+        LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.getProductNumbers();
         List<Product> products = findProductsBy(productNumbers);
 

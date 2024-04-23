@@ -14,13 +14,12 @@ class OrderTest {
 
     @Test
     @DisplayName("주문생성시 상품 리스트에서 주문의 총 금액을 계산한다.")
-    public void calculateTotalPrice() throws Exception{
+    public void calculateTotalPrice() throws Exception {
         //given
         List<Product> products = List.of(
             createProduct("001", 1000),
             createProduct("002", 2000)
         );
-
 
         //when
         Order order = Order.create(products, LocalDateTime.now());
@@ -32,13 +31,12 @@ class OrderTest {
 
     @Test
     @DisplayName("주문생성시 주문 상태는 INIT이다.")
-    public void init(){
+    public void init() {
         //given
         List<Product> products = List.of(
             createProduct("001", 1000),
             createProduct("002", 2000)
         );
-
 
         //when
         Order order = Order.create(products, LocalDateTime.now());
@@ -49,14 +47,13 @@ class OrderTest {
 
     @Test
     @DisplayName("주문생성시 주문 등록 시간을 기록한다.")
-    public void registeredDateTime(){
+    public void registeredDateTime() {
         //given
         LocalDateTime registeredDateTime = LocalDateTime.now();
         List<Product> products = List.of(
             createProduct("001", 1000),
             createProduct("002", 2000)
         );
-
 
         //when
         Order order = Order.create(products, registeredDateTime);

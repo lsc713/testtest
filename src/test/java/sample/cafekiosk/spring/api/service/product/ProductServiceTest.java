@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.Product;
@@ -22,12 +21,12 @@ import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
 /*readOnly = true : 읽기전용
-* 중요하게 분리해야
-* ->CUD가 안되고 조회만가능. JPA:CUD 스냅샷저장,변경감지를하지않아 (성능 향상)
-* CQRS - Command / Query 분리
-*
-*
-* */
+ * 중요하게 분리해야
+ * ->CUD가 안되고 조회만가능. JPA:CUD 스냅샷저장,변경감지를하지않아 (성능 향상)
+ * CQRS - Command / Query 분리
+ *
+ *
+ * */
 @Transactional(readOnly = true)
 @SpringBootTest
 @ActiveProfiles("test")

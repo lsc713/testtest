@@ -1,6 +1,5 @@
 package sample.cafekiosk.spring.api.service.order.request;
 
-import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;

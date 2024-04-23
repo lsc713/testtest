@@ -1,15 +1,14 @@
 package sample.cafekiosk.unit;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverages.Americano;
 import sample.cafekiosk.unit.beverages.Latte;
 import sample.cafekiosk.unit.order.Order;
-
-import java.time.LocalDateTime;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CafeKioskTest {
 
@@ -36,7 +35,7 @@ class CafeKioskTest {
     void addSeveralBeverages() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
-        cafeKiosk.add(americano,2);
+        cafeKiosk.add(americano, 2);
 
         assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
         assertThat(cafeKiosk.getBeverages().get(1)).isEqualTo(americano);
@@ -46,11 +45,11 @@ class CafeKioskTest {
     void addZeroBeverages() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
-        cafeKiosk.add(americano,2);
+        cafeKiosk.add(americano, 2);
 
         assertThatThrownBy(() -> cafeKiosk.add(americano, 0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("음료는 1잔 이상 주문하실 수 있습니다.");
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("음료는 1잔 이상 주문하실 수 있습니다.");
     }
 
     @Test
@@ -100,7 +99,7 @@ class CafeKioskTest {
         Americano americano = new Americano();
 
         cafeKiosk.add(americano);
-        Order order = cafeKiosk.createOrder(LocalDateTime.of(23,1,17,10,0));
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(23, 1, 17, 10, 0));
 
         assertThat(order.getBeverages()).hasSize(1);
         assertThat(order.getBeverages().get(0).getName()).isEqualTo("Americano");
@@ -114,8 +113,8 @@ class CafeKioskTest {
         Latte latte = new Latte();
         cafeKiosk.add(americano);
         assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(23, 1, 17, 9, 0)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
     }
 
 
@@ -132,8 +131,6 @@ class CafeKioskTest {
         int totalPrice = cafeKiosk.calculateTotalPrice();
         assertThat(totalPrice).isEqualTo(8500);
     }
-
-
 
 
 }

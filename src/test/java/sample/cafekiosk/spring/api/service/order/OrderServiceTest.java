@@ -1,5 +1,13 @@
 package sample.cafekiosk.spring.api.service.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
+import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
+import static sample.cafekiosk.spring.domain.product.ProductType.BAKERY;
+import static sample.cafekiosk.spring.domain.product.ProductType.BOTTLE;
+import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -9,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
@@ -19,14 +26,6 @@ import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductType;
 import sample.cafekiosk.spring.domain.stock.Stock;
 import sample.cafekiosk.spring.domain.stock.StockRepository;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.tuple;
-import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
-import static sample.cafekiosk.spring.domain.product.ProductType.BAKERY;
-import static sample.cafekiosk.spring.domain.product.ProductType.BOTTLE;
-import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -84,7 +83,7 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("중복되는 상품번호 리스트로 주문을 생성할 수 있다.")
-    public void createOrderWithDuplicateProductNumbers(){
+    public void createOrderWithDuplicateProductNumbers() {
         //given
         LocalDateTime registeredDateTime = LocalDateTime.now();
         Product product1 = createProduct(HANDMADE, "001", 1000);
@@ -100,7 +99,7 @@ class OrderServiceTest {
         //then
         assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
-            .extracting("registeredDateTime","totalPrice")
+            .extracting("registeredDateTime", "totalPrice")
             .contains(registeredDateTime, 2000);
         assertThat(orderResponse.getProducts()).hasSize(2)
             .extracting("productNumber", "price")
@@ -156,7 +155,7 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("재고가 부족한 상품으로 주문을 생성하려는 경우 예외가 발생한다.")
-    public void createOrderWithNoStock() throws Exception{
+    public void createOrderWithNoStock() throws Exception {
         //given
         LocalDateTime registeredDateTime = LocalDateTime.now();
         Product product1 = createProduct(BOTTLE, "001", 1000);

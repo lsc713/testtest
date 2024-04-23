@@ -1,6 +1,5 @@
 package sample.cafekiosk.spring.api.controller.order;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -16,10 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
-import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.order.OrderService;
-import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
-import sample.cafekiosk.spring.domain.product.ProductType;
 
 @WebMvcTest(controllers = OrderController.class)
 class OrderControllerTest {
@@ -35,7 +31,7 @@ class OrderControllerTest {
 
     @Test
     @DisplayName("신규 주문을 등록한다.")
-    public void createOrder() throws Exception{
+    public void createOrder() throws Exception {
         //given api 활용
         OrderCreateRequest request = OrderCreateRequest.builder()
             .productNumbers(List.of("001"))
@@ -57,7 +53,7 @@ class OrderControllerTest {
 
     @Test
     @DisplayName("신규 주문을 등록할 때 상품 번호는 1개 이상이어야합니다.")
-    public void createOrderWithEmptyProductNumbers() throws Exception{
+    public void createOrderWithEmptyProductNumbers() throws Exception {
         //given api 활용
         OrderCreateRequest request = OrderCreateRequest.builder()
             .productNumbers(List.of())

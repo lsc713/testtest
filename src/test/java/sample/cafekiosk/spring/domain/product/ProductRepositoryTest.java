@@ -1,17 +1,18 @@
 package sample.cafekiosk.spring.domain.product;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.HOLD;
+import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
+import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.STOP_SELLING;
+import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
+
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
-import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 //@SpringBootTest
 @DataJpaTest/*tx이 있음. Springboottest는 없어서 aftereach필요*/
@@ -25,7 +26,7 @@ class ProductRepositoryTest {
     @Test
     public void findAllBySellingStatusIn() throws Exception {
         //given
-        Product product1 = createProduct("001",HANDMADE, SELLING, "아메리카노", 4000);
+        Product product1 = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
         Product product2 = createProduct("002", HANDMADE, HOLD, "카페라떼", 4500);
         Product product3 = createProduct("003", HANDMADE, STOP_SELLING, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
@@ -36,11 +37,11 @@ class ProductRepositoryTest {
         //then
 
         assertThat(products).hasSize(2)
-                .extracting("productNumber", "name", "sellingStatus")
-                .containsExactlyInAnyOrder(
-                        tuple("001", "아메리카노", SELLING),
-                        tuple("002", "카페라떼", HOLD)
-                );
+            .extracting("productNumber", "name", "sellingStatus")
+            .containsExactlyInAnyOrder(
+                tuple("001", "아메리카노", SELLING),
+                tuple("002", "카페라떼", HOLD)
+            );
 
     }
 
@@ -48,14 +49,14 @@ class ProductRepositoryTest {
     @Test
     public void findAllByProductNumberIn() throws Exception {
         //given
-        Product product1 = createProduct("001",HANDMADE, SELLING, "아메리카노", 4000);
+        Product product1 = createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
         Product product2 = createProduct("002", HANDMADE, HOLD, "카페라떼", 4500);
         Product product3 = createProduct("003", HANDMADE, STOP_SELLING, "팥빙수", 7000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
         //when
 
-        List<Product> products = productRepository.findAllByProductNumberIn(List.of("001","002"));
+        List<Product> products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
         //then
 
         assertThat(products).hasSize(2)
