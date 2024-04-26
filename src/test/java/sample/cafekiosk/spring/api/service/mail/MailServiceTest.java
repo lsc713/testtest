@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -34,8 +35,10 @@ class MailServiceTest {
     @DisplayName("메일 전송 테스트")
     public void sendMail() throws Exception{
         //given
-        when(mailSendClient.sendEmail(anyString(), any(String.class), any(String.class), any(String.class)))
-            .thenReturn(true);
+//        when(mailSendClient.sendEmail(anyString(), any(String.class), any(String.class), any(String.class)))
+//            .thenReturn(true);
+        BDDMockito.given(mailSendClient.sendEmail(anyString(), any(String.class), any(String.class),
+            any(String.class))).willReturn(true);
 
         //when
         boolean result = mailService.sendMail("", "", "", "");
