@@ -13,11 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 
-//@SpringBootTest
-@DataJpaTest/*tx이 있음. Springboottest는 없어서 aftereach필요*/
-@ActiveProfiles("test")
-class ProductRepositoryTest {
+//@DataJpaTest/*tx이 있음. Springboottest는 없어서 aftereach필요*/
+@Transactional
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
